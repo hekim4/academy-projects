@@ -1,0 +1,17 @@
+08/24 _ 테스트 파일 오류 사항(related with GUI_0824(test).exe)
+반드시 menu_gen_(날짜).exe 파일로 menu디렉토리 및 레시피 먼저 생성해야 합니다.
+해당 디렉토리 없이는 GUI_(date).exe 파일 실행시 오류로 인해 강제 종료 되며,
+(08/25)해당문제는 final버전에서 개선되었습니다.
+Must run menu_gen_(date).exe first!
+When you run GUI_(date).exe withouth menu directory error will occure.
+(08/25)This problem solved at final version of executable file.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+08/25 _ final파일 오류 발견 사항(Error Report of final_GUI.exe)
+menu/{filename}.txt 의 형식으로 편집할 레시피를 불러들이다보니,
+menu디렉토리 외부의 아무 txt파일을 불러올 경우 허위경로의 파일을 불러들이는 식이 되어
+오류로 프로그램이 강제 종료 됨. (추후 개선 필요함.)
+Due to program code works like 'menu/{filename}.txt', if user load the random text file from 
+outside of menu directory(no matter either menu directory exist or not), program will forced 
+stop.
