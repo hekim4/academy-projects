@@ -20,6 +20,7 @@ Working Log : 2020-08-17 19:36(ver.1)
          2020-08-20 (ver.3_함수로만 기술했던 프로그램을 클래스화 함(GUI와의 연동 편의를 위해서), 코드 대폭 변경)
          2020-08-21 (ver.4_GUI연동 과정에서 show_textview1,2, runprogram1,2 메서드 소스 수정 및 기타부분 대폭 수정...) _ 1차 완성
          2020-08-24 (ver.5_ret_nameandingr()함수의 인덱싱이 잘못된 점을 발견하여 수정, 연관된 find_index()도 수정_라인 55,68)
+         2020-08-25 (runprogram1(), ret_m_names() 코드 수정으로 menu디렉토리 미 존재시 강제종료되던 현상 수정)
 """
 #!/usr/bin/env python3
 
@@ -39,7 +40,8 @@ class ChoosingMenu():
                 m_names.append(i.split(".")[0])
             return m_names
         else:
-            print("검색할 레시피들이 담긴 menu 폴더를 찾을 수 없었습니다.")
+            #print("검색할 레시피들이 담긴 menu 폴더를 찾을 수 없었습니다.")
+            return None
 
     def ret_nameandingr(m_names):
         nameandingr = []
@@ -106,16 +108,19 @@ class ChoosingMenu():
 
 def runprogram1(ingt1, ingt2):
     m_names = ChoosingMenu.ret_m_names()
-    nameandingr = ChoosingMenu.ret_nameandingr(m_names)
-    me = ChoosingMenu(ingt1, ingt2)
-    result_index = me.find_index(m_names, nameandingr)
-    #result_menus = me.show_textview1(m_names, nameandingr, result_index)
-    result_menus = me.show_textview1(nameandingr, result_index)
-    #print(result_menus)
-    if result_menus == [[], []]:
-        return [[], ['적절한 레시피가 없습니다.']]
+    if m_names == None:
+        return [[], ['menu 디렉토리를 찾을 수 없습니다.\n\n※경고 : 레시피 입력/수정/삭제 메뉴도 \nmenu 디렉토리를 발견할 수 없어 \n프로그램이 오작동 될 수 있으니 반드시 \nmenu_gen_(date).exe파일로 \n디렉토리 및 레시피들을 생성해 주세요!']]
     else:
-        return result_menus
+        nameandingr = ChoosingMenu.ret_nameandingr(m_names)
+        me = ChoosingMenu(ingt1, ingt2)
+        result_index = me.find_index(m_names, nameandingr)
+        #result_menus = me.show_textview1(m_names, nameandingr, result_index)
+        result_menus = me.show_textview1(nameandingr, result_index)
+        #print(result_menus)
+        if result_menus == [[], []]:
+            return [[], ['적절한 레시피가 없습니다.']]
+        else:
+            return result_menus
 
 def runprogram2(result_menus):
     forreturn_list = ChoosingMenu().show_textview2(result_menus)

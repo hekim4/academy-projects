@@ -11,7 +11,6 @@ Working Log : 2020-08-17 19:36(ver.1)
          2020-08-21 (ver.2.1_GUI연동 과정에서 show_textview1,2, runprogram1,2 메서드 소스 수정 및 기타부분 대폭 수정...) _ 1차 완성
          2020-08-24 (ver.3_레시피 직접 검색하도록 수정 및 서브 윈도우 클래스를 생성 및(이렇게 안하면 창이 자꾸 닫힘) 레시피 편집기능 추가)
                     참조 _ https://stackoverflow.com/questions/53225320/open-a-new-window-when-the-button-is-clicked-pyqt5
-         #예정 2020-08-25 (ver.4_사용자가 레시피를 직접 입력하지 않고, 콤보박스에 체크 가능한 레시피 리스트가 나타나도록 GUI 수정, 영문설명 추가)
 """
 #!/usr/bin/env python3
 
