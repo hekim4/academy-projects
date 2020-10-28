@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="kor">
+<head>
+    <meta charset="UTF-8">
+    <title>Bytecoin 회원관리</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='ffff.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'login.css')}}">
+</head>
+
+<a class="text-decoration-none text-dark float-right" style="margin-right: 5%;" href="/">메인으로</a>
+
+<nav class="container my-3">
+    <h1 class="text-center"><br>회원 관리</h1>
+</nav>
+<body>
+
+{% if g.user and g.user == 'admin' %}
+
+<div class="container" style="margin-top: 70px;">
+    <table class="table table-hover">
+        <thead>
+        <tr class="text-center table-active font-weight-bold">
+            <td>회원 번호</td>
+            <td>아이디</td>
+            <td>이메일</td>
+            <td>전화번호</td>
+            <td>가입날짜</td>
+            <td>관리</td>
+        </tr>
+        </thead>
+            <tbody>
+            {% if user_list %}
+                {% for user in user_list %}
+                <tr class="text-center">
+                    {% if user[1] == 'admin' %}
+                    <td>관리자</td>
+                    {% else %}
+                    <td>{{user[0]}}</td>
+                    {% endif %}
+                    <td class=" font-weight-bold">{{user[1]}}</td>
+                    <td>{{user[2]}}</td>
+                    <td>{{user[3]}}</td>
+                    <td>{{user[4]}}</td>
+                    <td><a class="text-decoration-none text-dark font-weight-bold" href="/manage/delete?r_id={{user[0]}}">탈퇴</a></td>
+                </tr>
+                {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="3">가입한 회원이 없습니다.</td>
+            </tr>
+            {% endif %}
+            </tbody>
+    </table>
+    <ul class ="pagination justify-content-center">
+        {% for page_num in range(1,lp) %}
+            {% if page_num %}
+                {% if page_num != p_page %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{page_num}}">{{page_num}}</a>
+                </li>
+                {% else %}
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link" href="#">{{page_num}}</a>
+                </li>
+                {% endif %}
+            {% else %}
+                <li class="disabled">
+                    <a class="page-link" href="#">...</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+{% else %}
+
+<div class="container my-3">
+
+    접근 권한이 없습니다.
+
+</div>
+{% endif %}
+</body>
+</html>

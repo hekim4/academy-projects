@@ -1,0 +1,80 @@
+{% extends 'pro.html' %}
+{% block content %}
+<div class="container my-3"style="height:840px">
+    <table class="table table-hover text-center">
+        <thead>
+        <tr class="text-center badge-secondary font-weight-bold text-wrap"> <!--thead-light-->
+            <th>번호</th>
+            <th style="width:50%">제목</th>
+            <th>작성자</th>
+            <th>작성일시</th>
+
+            <th>비고</th>
+
+            <!-- admin 로그인일때는 아래 코드를 넣어야 표가 보기 좋은데, 일반회원 기준은 없는게 맞네요 
+            <th></th>
+             -->
+        </tr>
+        </thead>
+            <tbody>
+            {% if question_list %}
+                {% for question in question_list %}
+                <tr class="text-center">
+                    <td>{{ question[0]}}</td>
+                    <td><a href="/question/detail?q={{question[0]}}">{{ question[1]}}</a></td>
+                    <td>{{ question[3]}}</td>
+                    <td>{{ question[4]}}</td>
+                    {% if g.user == 'admin' %}
+                    <td><a href="/question/delete?p_id={{ question[0] }}">삭제</a></td>
+                    {% elif g.user == question[3] %}
+                    <td><a href="/question/delete?p_id={{ question[0] }}&user={{question[3]}}">삭제</a></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            {% else %}
+            <tr>
+                <td colspan="3">질문이 없습니다.</td>
+            </tr>
+            {% endif %}
+            </tbody>
+
+
+    </table>
+<!--    페이징    -->
+    <ul class ="pagination justify-content-center">
+        {% for page_num in range(1,lp) %}
+            {% if page_num %}
+                {% if page_num != p_page %}
+                <li class="page-item">
+                    <a class="page-link bg-light border-light text-dark rounded-0 shadow-none" href="?page={{page_num}}">{{page_num}}</a>
+                </li>
+                {% else %}
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link bg-secondary border-secondary text-white rounded-0 shadow-none" href="#">{{page_num}}</a>
+                </li>
+                {% endif %}
+            {% else %}
+                <li class="disabled">
+                    <a class="page-link bg-secondary border-secondary text-white rounded-0 shadow-none" href="#">...</a>
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <br>
+    <form method="post" class="post-form">
+        {{ form.csrf_token }}
+        <div class="form-group float-left" style="width:200px; height:30px;">
+            <div class="input-group">
+            <!-- 
+            <label>제목검색</label>
+             -->
+            <input type="text" placeholder="제목 검색" class="form-control shadow-none border-secondary rounded-0" name="searchword" id="searchword"
+                   value="{{ form.searchword.data or ''}}">
+            <button type="submit" class="btn btn-secondary rounded-0">검색</button>
+            </div>
+        </div>
+    </form>
+
+    <a href="{{ url_for('question.create') }}" class="btn btn-secondary rounded-0" style="float:right;">질문 등록하기</a>
+</div>
+{% endblock %}

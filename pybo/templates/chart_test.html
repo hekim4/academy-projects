@@ -1,0 +1,93 @@
+<!-- 이 페이지를 다른페이지랑 병합하면 부트스트랩 충돌로 단시간에 재조정이 어려울 듯 하여, iframe/object로 띄우겠습니다 ^^;; -->
+<!DOCTYPE html>
+<html lang="kor">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <script src="../static/charts.js"></script>
+    <!-- 
+    <link rel="stylesheet" href="{{ url_for('static', filename='charts.js') }}">
+     -->
+</head>
+<body>
+    <style>
+        .chart_text, .chart_text:hover {
+            width: wrap;
+            display: inline;
+            text-align: center;
+            margin: 30%;
+        }
+        .container_temp {
+            width: wrap;
+            height: wrap;
+            max-width: 300px;
+        }
+        .small_text {
+            font-size: xx-small;
+            color: lightgray;
+        }
+        .btcrate, .ethrate, .ltcrate {
+            font-size: small;
+            color: whitesmoke;
+            background-color: lightsalmon;
+            display: inline-block;
+            position: relative;
+            text-align: left;
+        }
+        .btcprice, .ethprice, .ltcprice {
+            color: lightsalmon;
+            text-align: left;
+            display: inline-block;
+        }
+        .chart_text1, .chart_text2, .chart_text3 {
+            position: absolute;
+            margin-top: -130px;
+            text-align: center;
+            width: 200px;
+        }
+    </style>
+
+    <table>
+        <tr>
+            <td>
+                <a href="http://bytecoin.site">
+                    <div class="container_temp">
+                    <div class="chart1"><canvas id="myChart1"><!--비트코인--></canvas></div>
+                    <div class="chart_text1"><dl class="chart_text">
+                        <dt><a>비트코인</a><span class="small_text">BTC/KRW</span></dt>
+                        <dd class="onebox"><div class="btcrate"></div><div class="btcprice"></div>
+                    </dd>
+                    </dl></div>
+                    </div>
+                </a>
+            </td>
+            <td>
+                <a href="http://bytecoin.site">
+                    <div class="container_temp">
+                    <div class="chart2"><canvas id="myChart2"><!--이더리움--></canvas></div>
+                    <div class="chart_text2"><dl class="chart_text">
+                        <dt><a>이더리움</a><span class="small_text">ETH/KRW</span></dt>
+                        <dd class="onebox"><div class="ethrate"></div><div class="ethprice"></div></dd>
+                    </dl></div>
+                    </div>
+                </a>
+            </td>
+            <td id="hidden_in_mobile">
+                <a href="http://bytecoin.site">
+                    <div class="container_temp">
+                    <div class="chart3"><canvas id="myChart3"><!--라이트코인--></canvas></div>
+                    <div class="chart_text3"><dl class="chart_text">
+                        <dt><a>라이트코인</a><span class="small_text">LTC/KRW</span></dt>
+                        <dd class="onebox"><div class="ltcrate"></div><div class="ltcprice"></div></dd>
+                    </dl></div>
+                    </div>
+                </a>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

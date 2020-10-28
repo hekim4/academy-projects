@@ -1,0 +1,41 @@
+<!-- 
+<!DOCTYPE html>
+<html lang="kor">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>전자화폐 거래가 변동 그래프 (비트코인, 이더리움, 라이트코인)</title>
+ --> 
+{% extends 'pro.html' %}
+{% block content %}
+<thead>
+    <!-- 부트스트랩 링크 (하단_예정) -->
+
+    <!-- 차트&제이쿼리(getJSON) 링크 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!-- 차트 작동 코드 -->    
+    <script src="{{ url_for('static',filename='charts.js')}}"></script>
+    <!-- 
+    <script src="../static/charts.js"></script>
+     -->
+</thead>
+<tbody>
+<!--
+</head>
+<body>
+-->
+    <!-- 차트 불러올 시, 사이즈 조정 예시
+    <div class="graphs" style="width: 65%; height: 65%; margin-top: 10%; margin-left: auto; margin-right: auto;">
+    -->
+    <div>
+        <canvas id="myChart1"></canvas><!--비트코인-->
+        <canvas id="myChart2"></canvas><!--이더리움-->
+        <canvas id="myChart3"></canvas><!--라이트코인-->
+    </div>
+<!-- 
+</body>
+</html>
+ -->
+ </tbody>
+{% endblock %}

@@ -1,0 +1,131 @@
+<!-- Note: 작업하기 편하려고 JS 코드 한페이지에 썻구요~~ 차트 원하는대로 그린다음 JS/html/css 분리 예정입니다 :) -->
+<!DOCTYPE html>
+<html lang="kor">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>차트 그리기</title>
+    <!-- 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    -->
+    <!-- 차트 링크 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://www.chartjs.org/dist/2.9.4/Chart.min.js"></script>
+	<script src="https://www.chartjs.org/samples/latest/utils.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+
+<body>
+    <div><!-- class="container" -->
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <div class="test"></div>
+
+    <!-- 부트스트랩 -->
+    <!-- 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> 
+    -->
+
+    <!-- 차트 -->
+    <script>
+        function loadndraw(){
+            $.getJSON('https://api.bithumb.com/public/transaction_history/BTC_KRW', function(data) {
+            var stamp1 = `${data.data[1].transaction_date}`
+            var price1 = `${data.data[1].price}`
+            var stamp2 = `${data.data[2].transaction_date}`
+            var price2 = `${data.data[2].price}`
+            var stamp3 = `${data.data[3].transaction_date}`
+            var price3 = `${data.data[3].price}`
+            var stamp4 = `${data.data[4].transaction_date}`
+            var price4 = `${data.data[4].price}`
+            var stamp5 = `${data.data[5].transaction_date}`
+            var price5 = `${data.data[5].price}`
+            var stamp6 = `${data.data[6].transaction_date}`
+            var price6 = `${data.data[6].price}`
+            var stamp7 = `${data.data[7].transaction_date}`
+            var price7 = `${data.data[7].price}`         
+            //$(".test").html(result);
+
+                // 여기부턴 차트 그리기 코드
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var chart = new Chart(ctx, {
+                //차트 종류 선택
+                type: 'line',
+                //차트 데이터
+                data: {
+                    labels: ["", "", "", "", "", "", ""],
+                            //[stamp1, stamp2, stamp3, stamp4, stamp5, stamp6, stamp7],
+                    datasets: [{
+                        label: 'BTC',
+                        //backgroundColor: 'fillPattern',//'transparent',
+                        borderColor: 'lightgray',
+                        fill: true, //밑에 채우기
+                        data: [price1, price2, price3, price4, price5, price6, price7]
+                    }]
+                },
+                //옵션 https://www.chartjs.org/samples/latest/scales/gridlines-display.html 참조
+                options: {
+                    labels: {
+                        display: false,
+                    },
+                    scales: {
+                        xAxes: [{
+                            gridLines: {
+                                display: true,
+                                //drawBorder: true,
+                                drawOnChartArea: false,
+                                drawTicks: false,
+                                stepSize: 0
+                            },
+                        }],
+                        yAxes: [{
+                            gridLines: {
+                                display: true,
+                                //drawBorder: false, // | _ 선 표시 여부 기본은 true
+                                drawOnChartArea: false,
+                                drawTicks: false, //| _ 선의 눈금자 표기여부
+                                stepSize: 0
+                            },
+                            ticks: {    //왼쪽 스케일(눈금) 조절
+                                display: false
+                                //min: 0,
+                                //max: 100,
+                                //stepSize: 10
+                            }
+                        }]
+                    },
+                    legend: {
+                        display: false
+                    },
+                    // title: {
+                    //     display: false,
+                    //     text: 'BTC 추이'
+                    // }
+                }
+                });
+            });
+        }
+        loadndraw()
+
+        // 현재 일시 기준으로 5일치 불러오려 했는데;; BTC에서는 당일의 거래내역들만 제공하지 방대한 history를 제공하지는 않는것 같아서 안쓰게 되었습니다 ㅠ_ㅠ
+        function set_data(){
+            let today = new Date();
+            let year = today.getFullYear();
+            let month = today.getMonth() +1;
+            let date = today.getDate();
+            let hours = today.getHours();
+            let minutes = today.getMinutes();
+            let seconds = today.getSeconds();
+        
+            var datetime = year+"-"+month+"-"+date+" "+hours+":"+minutes+":"+seconds;
+            //document.write(datetime);
+            //2020-10-20 16:48:5
+        }
+        //set_data()
+    </script>
+</body>
+</html>

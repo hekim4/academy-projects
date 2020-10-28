@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="kor">
+<head>
+    <meta charset="UTF-8">
+    <title>제이쿼리를 이용한 빗썸 AIP 로드하기(자동 리프레쉬 적용)</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="{{ url_for('static',filename='api_onworking.js')}}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='base_style.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+</head>
+<body>
+    <!-- <h3 class="head3">빗썸 거래소 정보</h3> -->
+    <table class="table">
+        <th class="ttitle">코인명/거래소</th>
+        <th class="ttitle"><a class="Alink" href="https://www.bithumb.com/">빗썸(KRW)</a></th>
+        <th class="ttitle"><a class="Alink" href="https://upbit.com/">업비트(KRW)</a></th>
+        <th class="ttitle"><a class="Alink" href="https://poloniex.com/">폴로닉스(USD)</a></th>
+        <tr><!-- 첫 번째 내용 줄 시작 -->
+            <th class="ttitle">BTC(비트코인)<br><a class="text1">고가/저가</a></th>
+            <td class="tcontents"><div class="bth_pbtc"></div></td>
+            <td class="tcontents"><div class="ubt_pbtc"></div></td>
+            <td class="tcontents"><div class="pol_pbtc"></div></td>
+        </tr>
+        <tr>
+            <th class="ttitle">ETH(이더리움)<br><a class="text1">고가/저가</a></th>
+            <td class="tcontents"><div class="bth_peth"></div></td>
+            <td class="tcontents"><div class="ubt_peth"></div></td>
+            <td class="tcontents"><div class="pol_peth"></div></td>
+        </tr>
+        <tr>
+            <th class="ttitle">LTC(라이트코인)<br><a class="text1">고가/저가</a></th>
+            <td class="tcontents"><div class="bth_pltc"></div></td>
+            <td class="tcontents"><div class="ubt_pltc"></div></td>
+            <td class="tcontents"><div class="pol_pltc"></div></td>
+        </tr>
+        <tr>
+            <th class="ttitle">LINK(체인링크)<br><a class="text1">고가/저가</a></th>
+            <td class="tcontents"><div class="bth_plink"></div></td>
+            <td class="tcontents"><div class="ubt_plink"></div></td>
+            <td class="tcontents"><div class="pol_plink"></div></td>
+        </tr>
+        <tr>
+            <th class="ttitle">DOT(폴카닷)<br><a class="text1">고가/저가</a></th>
+            <td class="tcontents"><div class="bth_pdot"></div></td>
+            <td class="tcontents"><div class="ubt_pdot"></div></td>
+            <td class="tcontents"><div class="pol_pdot"></div></td>
+        </tr>
+        <tr>
+            <th class="ttitle">EOS(이오스)<br><a class="text1">고가/저가</a></th>
+            <td class="tcontents"><div class="bth_peos"></div></td>
+            <td class="tcontents"><div class="ubt_peos"></div></td>
+            <td class="tcontents"><div class="pol_peos"></div></td>
+        </tr>
+        <tr>
+            <th class="ttitle">XRP(리플)<br><a class="text1">고가/저가</a></th>
+            <td class="tcontents"><div class="bth_pxrp"></div></td>
+            <td class="tcontents"><div class="ubt_pxrp"></div></td>
+            <td class="tcontents"><div class="pol_pxrp"></div></td>
+        </tr>
+    </table>
+
+</body>
+</html>

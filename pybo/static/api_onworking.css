@@ -1,0 +1,46 @@
+
+
+
+
+.bth_pbtc, .ubt_pbtc, .pol__pbtc, .bth_peth, .ubt_peth , .pol_peth, .bth_pltc , .ubt_pltc , .pol_pltc, .bth_plink , .ubt_plink , .pol_plink, .bth_pdot , .ubt_pdot , .pol_pdot, .bth_peos , .ubt_peos , .pol_peos, .bth_pxrp , .ubt_pxrp , .pol_pxrp {
+    text-align: center;
+    border: solid 0px gray;
+    width: auto;
+}
+
+.info_table {
+    margin-left: auto;
+    margin-right: auto;
+    border : solid 0px gray;
+    background-color: whitesmoke;
+    border-top: solid 1px gray;
+}
+
+.ttitle, .tcontents {
+    margin: -1px, -1px, -1px, -1px;
+    border-bottom: solid 1px gray;
+    text-align: center;
+}
+
+.ttitle {
+    background-color: rgb(230, 228, 228);
+}
+
+.text1 {
+    color:lightgray
+}
+.text1:hover {
+    color:lightgray
+}
+.Alink {
+    text-decoration: none;
+    color: black;
+    /* a:link, a:visited, a:active, a:hover 옵션으로 세부 조정 가능! */
+}
+.Alink:hover {
+    color: lightgray;
+}
+
+.head3 {
+    text-align: center;
+}

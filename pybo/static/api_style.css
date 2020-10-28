@@ -1,0 +1,57 @@
+.api_frame{
+    //position: absolute;
+    width: 600px;
+    height: 270px;
+    display: block;
+    margin-left:auto;
+    margin-right:auto;
+}
+.graph_frame{
+    width: 950px;
+    height: 190px;
+    display: block;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: -30px;
+}
+
+.c_cal{
+    position: relative;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -17px;
+}
+
+#krw{
+    width: 100px;
+}
+
+.curr2{
+    display: none;
+    color: #0056b3;
+}
+
+.cur_cal_tb{
+    background-color: lightgray;
+    text-align: center;
+}
+
+.pretext_result, #result_pannel2 {
+	font-weight: bold;
+}
+
+@media screen and (max-width: 768) {
+    #hidden_in_mobile, .chart3, #myChart3, .chart_text3{
+        display: none;
+        width: 0;
+    }
+    .graph_frame{
+        width: 600px;
+        height: 190px;
+        display: block;
+        margin-left:auto;
+        margin-right:auto;
+        margin-bottom: -30px;
+    }
+}

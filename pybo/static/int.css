@@ -1,0 +1,61 @@
+.intro{
+  margin-top : 70px;
+  margin-bottom :40px;
+}
+.jumbotron{
+  animation-name: intro2;
+  animation-duration: 2s;
+  animation-fill-mode: both;
+}
+.row{
+  animation-name: intro3;
+  animation-duration: 5s;
+  animation-fill-mode: both;
+}
+@keyframes intro2{
+    0%{
+        opacity : 0;
+    }
+    100%{
+        opacity : 1;
+    }
+}
+@keyframes intro3{
+    0%{
+        opacity : 0;
+    }
+    100%{
+        opacity : 1;
+    }
+}
+
+
+@media only screen and (max-width:900px){
+.jumbotron{
+  animation-name: intro2;
+  animation-duration: 2s;
+  animation-fill-mode: both;
+}
+.row{
+  animation-name: intro3;
+  animation-duration: 5s;
+  animation-fill-mode: both;
+}
+@keyframes intro2{
+    0%{
+        opacity : 0;
+    }
+    100%{
+        opacity : 1;
+    }
+}
+@keyframes intro3{
+    0%{
+        opacity : 0;
+    }
+    100%{
+        opacity : 1;
+    }
+}
+
+}

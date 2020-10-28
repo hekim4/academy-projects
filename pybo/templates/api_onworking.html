@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=640,user-scalable=no">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ffff.css') }}">
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='pro2.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='base_style.css') }}">
+    <!-- added_style.css는 로그인과 회원가입 관련 css 파일로 nav와 혹시라도 충돌 시 주석처리하면 롤백됩니다. -->
+<!--    <link rel="stylesheet" href="{{ url_for('static', filename='added_style.css') }}">-->
+    <title>Byte Coin</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Gugi&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/48c2f0e0c8.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{{ url_for('static',filename='nav.js')}}"defer></script>
+
+
+
+</head>
+<body>
+    <nav>
+        <div class="nav_all">
+            <div class="navbar_logo">
+                  <a href="/">
+                  <img class="w" src="{{url_for('static',filename='img/logo7.png') }}" alt="logo" width="400px" height="80px"></a>
+                  <a href="/" class="b">
+                      <h2 class="text-decoration-none text-white float-right" style="margin-bottom : 0px; margin-top: 10px;">BYTECOIN</h2>
+                  </a>
+                <a href="#" class="navbar_toogle">
+                    <i class="fas fa-bars"></i>
+                </a>
+                <a href="/auth/login" class="nav_img" style="margin-right:3px;">
+                    <i class="fas fa-user-plus"></i>
+                </a>
+                    {% if g.user and g.user == "admin" %}
+                <ul class="navbar_smallmenu">
+                    <a class="text-decoration-none text-dark float-right" href="/auth/logout">{{ g.user }}(로그아웃)</a>
+                    <a class="text-decoration-none text-dark float-right" href="/manage">회원 관리</a>
+                </ul>
+                {% elif g.user %}
+                <ul class="navbar_smallmenu">
+                    <a class="text-decoration-none text-dark float-right" href="/auth/logout">{{ g.user }}(로그아웃)</a>
+                    <a class="text-decoration-none text-dark float-right" href="/information?nick={{ g.user }}">내정보</a>
+                </ul>
+                {% else %}
+                <ul class="navbar_smallmenu">
+                    <a class="text-decoration-none text-dark float-right" href="/auth/login" style="color:black;">로그인</a>
+                    <a class="text-decoration-none text-dark float-right" href="/auth/signup" style="color:black;">회원가입</a>
+                </ul>
+                {% endif  %}
+            </div>
+            <div class="navbar">
+                <div class="navbar_menu">
+                    <li><a class="text-decoration-none" href="/">코인시세</a></li>
+                    <li><a class="text-decoration-none" href="/introduce">거래사이트</a></li>
+                    <li><a class="text-decoration-none" href="/introduce_coin">코인</a></li>
+                    <li><a class="text-decoration-none" href="/question/list">게시판</a></li>
+                    <li><a class="text-decoration-none" href="/int">소개</a></li>
+                </div>
+            </div>
+        </div>
+    </nav>
+<thead>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="{{ url_for('static',filename='api_onworking.js')}}"></script>
+<script src="{{ url_for('static',filename='currency_cal.js')}}"></script>
+<script src="{{ url_for('static',filename='charts.js')}}"></script>
+
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"> -->
+<!-- 
+<link rel="stylesheet" href="{{ url_for('static', filename='base_style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='api_style.css') }}">
+ -->
+</thead>
+<tbody>
+    <style>
+        .charts_ {
+            position:relative
+        }
+        .chart_text {
+            position:absolute;
+            top: 45%;
+            left:50%;
+        }
+        .small_text, .light_text, .light_text:hover {
+            font-size: xx-small;
+            color: lightgray;
+            text-decoration: none;
+        }
+        .btcrate, .ethrate, .ltcrate {
+            font-size: small;
+            color: whitesmoke;
+            background-color: lightsalmon;
+            /* background-color: gray; */
+            display: inline-block;
+            position: relative;
+            text-align: left;
+        }
+        .btcprice, .ethprice, .ltcprice {
+            color: lightsalmon;
+            /* color:gray; */
+            text-align: left;
+            display: inline-block;
+        }
+        #myChart1, #myChart2, #myChart3 {
+            margin-bottom: -23px;
+        }
+        #cur_hidden {
+            display:none;
+        }
+    </style>
+
+<div class="container my-3">
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <td>
+                    <!-- chart1 div 안에 chart_text1 div가 들어가는 식으로 해야 absolute 정상작동 -->
+                    <div class="charts_"><canvas id="myChart1"></canvas>
+                        <div class="chart_text">
+                            <dl>
+                                <dt><a class="text-decoration-none text-dark" style="color: black; text-decoration: none;" style:hover="color: black; text-decoration: none;">비트코인</a>
+                                    <span class="small_text">BTC/KRW</span>
+                                </dt>
+                                <dd>
+                                    <div class="btcrate"></div>
+                                    <div class="btcprice"></div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                   <div class="charts_"><canvas id="myChart2"></canvas>
+                        <div class="chart_text">
+                            <dl>
+                                <dt><a class="text-decoration-none text-dark" style="color: black; text-decoration: none;" style:hover="color: black; text-decoration: none;">이더리움</a>
+                                    <span class="small_text">ETH/KRW</span>
+                                </dt>
+                            <dd>
+                                <div class="ethrate"></div>
+                                <div class="ethprice"></div>
+                            </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="charts_"><canvas id="myChart3"></canvas>
+                        <div class="chart_text">
+                            <dl>
+                                <dt><a class="text-decoration-none text-dark" style="color: black; text-decoration: none;" style:hover="color: black; text-decoration: none;">라이트코인</a>
+                                    <span class="small_text">LTC/KRW</span>
+                                </dt>
+                            <dd>
+                                <div class="ltcrate"></div>
+                                <div class="ltcprice"></div>
+                            </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="center-block table-responsive">
+        <table class="table table-striped table-hover text-center">
+            <th class="text-center font-weight-bold">코인명/거래소</th>
+            <th class="text-center"><a class="text-decoration-none text-dark font-weight-bold" href="https://www.bithumb.com/" style="font-weight: bold; color: black; text-decoration: none;" style:hover="font-weight: bold; color: black; text-decoration: none;">빗썸(KRW)</a></th>
+            <th class="text-center"><a class="text-decoration-none text-dark font-weight-bold" href="https://upbit.com/" style="font-weight: bold; color: black; text-decoration: none;" style:hover="font-weight: bold; color: black; text-decoration: none;">업비트(KRW)</a></th>
+            <th class="text-center"><a class="text-decoration-none text-dark font-weight-bold" href="https://poloniex.com/" style="font-weight: bold; color: black; text-decoration: none;" style:hover="font-weight: bold; color: black; text-decoration: none;">폴로닉스(USD)</a></th>
+            <tr class="text-center">
+                <th class="text-center font-weight-bold">BTC(비트코인)<br><a class="light_text">고가/저가</a></th>
+                <td><div class="bth_pbtc"></div></td>
+                <td><div class="ubt_pbtc"></div></td>
+                <td><div class="pol_pbtc"></div></td>
+            </tr>
+            <tr class="text-center">
+                <th class="text-center font-weight-bold">ETH(이더리움)<br><a class="light_text">고가/저가</a></th>
+                <td><div class="bth_peth"></div></td>
+                <td><div class="ubt_peth"></div></td>
+                <td><div class="pol_peth"></div></td>
+            </tr>
+            <tr class="text-center">
+                <th class="text-center font-weight-bold">LTC(라이트코인)<br><a class="light_text">고가/저가</a></th>
+                <td><div class="bth_pltc"></div></td>
+                <td><div class="ubt_pltc"></div></td>
+                <td><div class="pol_pltc"></div></td>
+            </tr>
+            <tr class="text-center">
+                <th class="text-center font-weight-bold">LINK(체인링크)<br><a class="light_text">고가/저가</a></th>
+                <td><div class="bth_plink"></div></td>
+                <td><div class="ubt_plink"></div></td>
+                <td><div class="pol_plink"></div></td>
+            </tr>
+            <tr class="text-center">
+                <th class="text-center font-weight-bold">DOT(폴카닷)<br><a class="light_text">고가/저가</a></th>
+                <td><div class="bth_pdot"></div></td>
+                <td><div class="ubt_pdot"></div></td>
+                <td><div class="pol_pdot"></div></td>
+            </tr>
+            <tr class="text-center">
+                <th class="text-center font-weight-bold">EOS(이오스)<br><a class="light_text">고가/저가</a></th>
+                <td><div class="bth_peos"></div></td>
+                <td><div class="ubt_peos"></div></td>
+                <td><div class="pol_peos"></div></td>
+            </tr>
+            <tr class="text-center">
+                <th class="text-center font-weight-bold">XRP(리플)<br><a class="light_text">고가/저가</a></th>
+                <td><div class="bth_pxrp"></div></td>
+                <td><div class="ubt_pxrp"></div></td>
+                <td><div class="pol_pxrp"></div></td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="justify-content-center"><!-- h-100 row align-items-center -->
+        <table class="table">
+            <tr>
+                <td></td>
+                <td class="text-center" colspan="2">
+                    <input class="input-sm" type="text" id="usd"></input><a>&nbsp;&nbsp;</a>
+                    <button class="btn btn-light" onclick="cal()" type="submit" style="font-weight: bold;"><label class="curr"></label></button>
+                </td>
+                <td></td>
+            </tr>
+            <tr class="active">
+                <td style="background-color: rgb(245, 243, 243);"></td>
+                <td class="text-center" colspan="2" style="background-color: rgb(245, 243, 243);"><label style="font-weight: bold;">입력 값(USD)&nbsp;:&nbsp;</label><label id="result_pannel1" style="font-weight: bold;"></label><label style="font-weight: bold;">&nbsp;&nbsp;/&nbsp;</label><label class="pretext_result" style="font-weight: bold;"> 환산 값(KRW)&nbsp;:&nbsp;</label><label id="result_pannel2" style="font-weight: bold;"></label></td>
+                <td style="background-color: rgb(245, 243, 243);"></td>
+            </tr>
+        </table>
+        <div class="curr2" id="cur_hidden"></div>
+    </div>
+</div>
+</tbody>
+
+
+
+
+<div class="foot">
+            BYTE COIN | 팀장 : 권태준<br>
+            전화번호 : 010-2593-9506 | 팀원: 김혜은 김휘람 <br>
+            본 사이트에서 제공되는 모든 정보는 투자판단의 참고자료이며 서비스 이용에 따른 최종 책임은 이용자에게 있습니다.<br>
+            Copyright (c) BYTE COIN All Rights Reserved.
+</div>
+
+</body>
+
+
+</html>

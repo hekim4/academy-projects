@@ -1,0 +1,50 @@
+{% extends 'pro.html' %}
+{% block content %}
+<div class="container my-3 table-responsive table-secondary shadow rounded-sm">
+    <h2 class="border-bottom py-2">{{ question[0] }}</h2>
+    <div class="card my-3">
+        {% if question[5]: %}
+        <div>
+        <a href="/question/download?img={{question[5]}}"><button class="btn btn-secondary float-right">첨부파일 : {{question[5]}}</button></a>
+        </div>
+        {% endif %}
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">{{ question[1] }}</div>
+            <div class="d-flex justify-content-end">
+                <div class="badge badge-light p-2 text-left">
+                 <div class="mb-2">{{ reporter[0] }}</div>
+                 <div>{{ question[3] }}</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% if answer|length > 0 %}
+    <h5 class="border-bottom my-3 py-2">{{ answer|length }}개의 답변이 있습니다.</h5>
+    {% for answerset in answer %}
+    <div class="card my-3">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;">{{ answerset[0] }}</div>
+            <div class="d-flex justify-content-end">
+                <div class="badge badge-light p-2 text-left">
+                    <div class="mb-2">{{ answerset[2] }}</div>
+                    <div>{{ answerset[1] }}</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <form action="{{ url_for('answer.create', question_id= question[4]) }}" method="post" class="my-3">
+        {{ form.csrf_token }}
+        <div class="form-group">
+            <textarea {% if not g.user %}disabled{% endif %}
+                    name="content" placeholder="답변" id="content" class="form-control" rows="10"></textarea>
+            <br>
+            <input type="submit" value="답변등록" class="btn btn-secondary float-right">
+        </div>
+        <div><br></div>
+    </form>
+</div>
+{% endblock %}
