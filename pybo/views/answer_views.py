@@ -15,7 +15,7 @@ def connect_data():
         password="1234",
         host="localhost",
         port=3306,
-        database="d_test"
+        database="dd_test"
     )
     return conn
 
@@ -40,4 +40,3 @@ VALUES({}, '{}', {}, current_timestamp(), NULL);""".format(question_id,content,r
 
         return redirect(url_for('question.detail', q=question_id))
     return render_template('question/question_detail.html', question=question_id, form=form)
-
