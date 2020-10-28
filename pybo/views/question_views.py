@@ -23,7 +23,7 @@ def connect_data():
         password="1234",
         host="localhost",
         port=3306,
-        database="d_test"
+        database="dd_test"
     )
     return conn
 
@@ -173,8 +173,6 @@ def download():
     imgnum = request.args.get('img', type=str)
 
     return send_file(path + imgnum, attachment_filename= imgnum,as_attachment=True)
-
-
 
 
 
